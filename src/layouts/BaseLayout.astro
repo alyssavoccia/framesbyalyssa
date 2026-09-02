@@ -1,0 +1,23 @@
+---
+import Sidebar from "../components/Sidebar.astro";
+import { ClientRouter } from "astro:transitions";
+
+const { title = "FramesByAlyssa" } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ClientRouter />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <slot name="head" />
+  </head>
+
+  <body class="min-h-screen flex">
+    <Sidebar />
+    <main class="flex-1 lg:ml-65 transition-all duration-300">
+      <slot />
+    </main>
+  </body>
+</html>

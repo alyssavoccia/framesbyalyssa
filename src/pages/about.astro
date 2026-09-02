@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Seo from "../components/Seo.astro";
+---
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title="About | FramesByAlyssa"
+    description="I'm Alyssa, a photographer with a passion for live music, travel, and everything in between. I document live music, travel, and cinematic storytelling."
+  />
+  <div class="px-6 lg:px-10 py-10 max-w-3xl">
+    <h1 class="text-4xl md:text-6xl font-light mb-10">I document live music, travel, and cinematic storytelling.</h1>
+    <div class="space-y-6 text-zinc-400 leading-relaxed">
+      <p>Hi, I’m Alyssa! I'm a photographer with a passion for live music, travel, and everything in between.</p>
+      <p>I have always had a passion for photography, videography, and editing. Growing up I was always making little videos, mainly by myself, but sometimes with other people. Most of the time I didn't really know where they were going and would make them up along the way, but there was something about the filming process and then putting the pieces together in editing that I loved.</p>
+      <p>Today, I'm an aspiring photographer and videographer based in South Florida.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-10 mt-16 border-t border-white/10 pt-10">
+      <div>
+          <p class="text-xs text-off-white/50 tracking-[0.3em] uppercase mb-3">Focus</p>
+          <p class="text-zinc-300">Concerts / Video / Lifestyle / Travel</p>
+        </div>
+        <div>
+          <p class="text-xs text-off-white/50 tracking-[0.3em] uppercase mb-3">Based In</p>
+          <p class="text-zinc-300">Florida, USA</p>
+        </div>
+        <div>
+          <p class="text-xs text-off-white/50 tracking-[0.3em] uppercase mb-3">Available For</p>
+          <p class="text-zinc-300">Shows, Festivals, Editorial Work</p>
+        </div>
+        <div>
+          <p class="text-xs text-off-white/50 tracking-[0.3em] uppercase mb-3">Contact</p>
+          <p class="text-zinc-300">hello@framesbyalyssa.com</p>
+        </div>
+    </div>
+  </div>
+</BaseLayout>

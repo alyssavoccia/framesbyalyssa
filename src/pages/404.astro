@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Seo from "../components/Seo.astro";
+---
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title="404 | FramesByAlyssa"
+    description="This story no longer exists."
+  />
+  <div class="px-6 lg:px-10 pt-24 lg:pt-10">
+    <div class="max-w-2xl">
+      <p class="text-xs uppercase tracking-[0.3em] text-off-white/50 mb-8">Error 404</p>
+      <h1 class="text-5xl md:text-7xl font-light mb-8">This story no longer exists.</h1>
+      <a href="/" class="inline-block text-sm uppercase tracking-[0.25em] text-brand-primary hover:opacity-80 transition">
+        Return home →
+      </a>
+    </div>
+  </div>
+</BaseLayout>

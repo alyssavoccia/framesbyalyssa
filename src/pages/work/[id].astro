@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Seo from '../../components/Seo.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('work');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title={`${post.data.title} | FramesByAlyssa`}
+    description={`${post.data.title} at ${post.data.venue} in ${post.data.year}.`}
+  />
+  <div class="px-6 lg:px-10 pt-24 lg:pt-10 pb-16 max-w-5xl">
+    <div class="mb-16">
+      <p class="text-xs uppercase tracking-[0.3em] text-off-white/50 mb-6">
+        Concert Photography
+        {post.data.city && ` | ${post.data.city}`}
+        {post.data.year && ` | ${post.data.year}`}
+      </p>
+      <h1 class="text-4xl md:text-6xl font-light mb-10">
+        {post.data.title}
+      </h1>
+      <!-- <div class="prose prose-invert max-w-2xl">
+        <Content />
+      </div> -->
+      {post.data.camera && (
+        <div class="mt-10 text-xs uppercase tracking-[0.25em] text-zinc-500">
+          {post.data.camera}
+        </div>
+      )}
+    </div>
+    <div class="md:columns-2 gap-10 space-y-10 max-w-3xl">
+      {post.data.images.map((image) => (
+        <img
+          src={image}
+          class="w-full break-inside-avoid"
+          loading="lazy"
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Seo from "../../components/Seo.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("journal");
+
+posts.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+---
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title="Journal | FramesByAlyssa"
+    description="Check out my journal to learn more about my photography, videography, and editing."
+  />
+  <div class="px-6 lg:px-10 pt-24 lg:pt-10 pb-16 max-w-4xl">
+    <h1 class="text-4xl md:text-6xl font-light mb-16">Journal</h1>
+    {
+      posts.length === 0 ? (
+        <div class="max-w-xl">
+          <p class="text-off-white/50 text-sm uppercase tracking-[0.3em] mb-6">No Entries Yet</p>
+          <p class="text-2xl font-light">The first story is still being written.</p>
+        </div>
+      ) : (
+        <div class="space-y-12">
+          {posts.map((post) => (
+            <article>
+              <p class="text-xs uppercase tracking-[0.3em] text-off-white/50 mb-2">{post.data.publishDate.toLocaleDateString()}</p>
+              <a
+                href={`/journal/${post.id}`}
+                class="text-2xl md:text-3xl font-light hover:text-brand-primary transition"
+              >
+                {post.data.title}
+              </a>
+              <p class="mt-3 text-off-white/60">{post.data.description}</p>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

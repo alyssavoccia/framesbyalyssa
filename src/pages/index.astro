@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Seo from "../components/Seo.astro";
+import { getCollection } from "astro:content";
+
+const work = await getCollection("work");
+---
+
+<BaseLayout>
+  <Seo 
+		slot="head"
+		title="Home | FramesByAlyssa"
+		description="I'm Alyssa, a photographer with a passion for live music, travel, and everything in between. I document live music, travel, and cinematic storytelling."
+	/>
+  <div class="px-6 lg:px-10 py-10">
+    <div class="columns-1 md:columns-2 xl:columns-3 gap-6 space-y-6">
+      {work.map((item) => (
+        <a
+          href={`/work/${item.id}`}
+          class="block mb-6 overflow-hidden group"
+        >
+          <img
+            src={item.data.cover}
+            alt={item.data.title}
+            class="w-full transition duration-700 group-hover:scale-105"
+          />
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

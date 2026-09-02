@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Seo from '../../components/Seo.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('journal');
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title={`${post.data.title} | FramesByAlyssa`}
+    description={post.data.description}
+  />
+  <article class="px-6 lg:px-10 pt-24 lg:pt-10 pb-20 max-w-3xl">
+    <p class="text-xs uppercase tracking-[0.3em] text-off-white/50 mb-6">{post.data.publishDate.toLocaleDateString()}</p>
+    <h1 class="text-4xl md:text-6xl font-light mb-10">{post.data.title}</h1>
+    <div class="journal-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Seo from "../../components/Seo.astro";
+import { getCollection } from "astro:content";
+
+const allWork = await getCollection("work");
+
+const concerts = allWork
+  .filter((item) => item.data.category === "concerts")
+  .sort((a, b) => {
+    const yearA = a.data.year ?? 0;
+    const yearB = b.data.year ?? 0;
+
+    return yearB - yearA;
+  });
+---
+
+<BaseLayout>
+  <Seo 
+    slot="head"
+    title="Concerts | FramesByAlyssa"
+    description="Browse through all of my concert photography and any stories that I've written about them."
+  />
+  <div class="px-6 lg:px-10 pt-24 lg:pt-10 pb-20 max-w-4xl">
+    <div class="mb-20">
+      <h1 class="text-4xl md:text-6xl font-light mb-8">Concerts</h1>
+    </div>
+    {
+      concerts.length === 0 ? (
+        <div class="max-w-xl">
+          <p class="text-xs uppercase tracking-[0.3em] text-off-white/50 mb-4">No Posts Yet</p>
+        </div>
+      ) : (
+        <div class="space-y-10">
+          {concerts.map((story) => (
+            <article>
+              <a href={`/work/${story.id}`}class="group block">
+                <div class="grid lg:grid-cols-[320px_1fr] gap-4 items-start">
+                  <div class="overflow-hidden">
+                    <img
+                      src={story.data.cover}
+                      alt={story.data.title}
+                      class="w-full transition duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-off-white/50 mb-4">{story.data.year}</p>
+                    <h2 class="text-3xl md:text-4xl font-light mb-4 group-hover:text-brand-primary transition">{story.data.title}</h2>
+                    <p class="text-off-white/60">View More →</p>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>
